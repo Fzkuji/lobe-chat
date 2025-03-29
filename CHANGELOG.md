@@ -2,6 +2,58 @@
 
 # Changelog
 
+## [Version 1.76.0](https://github.com/lobehub/lobe-chat/compare/v1.75.5...v1.76.0)
+
+<sup>Released on **2025-03-28**</sup>
+
+#### ✨ Features
+
+- **misc**: Add Hotkey Settings.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### What's improved
+
+- **misc**: Add Hotkey Settings, closes [#7118](https://github.com/lobehub/lobe-chat/issues/7118) ([9773e74](https://github.com/lobehub/lobe-chat/commit/9773e74))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
+### [Version 1.75.5](https://github.com/lobehub/lobe-chat/compare/v1.75.4...v1.75.5)
+
+<sup>Released on **2025-03-28**</sup>
+
+#### 💄 Styles
+
+- **misc**: Add tencentcloud deepseek-v3-0324, support for parsing `imageOutput`, update models for siliconcloud & infiniai.
+
+<br/>
+
+<details>
+<summary><kbd>Improvements and Fixes</kbd></summary>
+
+#### Styles
+
+- **misc**: Add tencentcloud deepseek-v3-0324, closes [#7182](https://github.com/lobehub/lobe-chat/issues/7182) ([c67af99](https://github.com/lobehub/lobe-chat/commit/c67af99))
+- **misc**: Support for parsing `imageOutput`, closes [#7140](https://github.com/lobehub/lobe-chat/issues/7140) ([05bae9d](https://github.com/lobehub/lobe-chat/commit/05bae9d))
+- **misc**: Update models for siliconcloud & infiniai, closes [#7197](https://github.com/lobehub/lobe-chat/issues/7197) ([1c1f693](https://github.com/lobehub/lobe-chat/commit/1c1f693))
+
+</details>
+
+<div align="right">
+
+[![](https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square)](#readme-top)
+
+</div>
+
 ### [Version 1.75.4](https://github.com/lobehub/lobe-chat/compare/v1.75.3...v1.75.4)
 
 <sup>Released on **2025-03-27**</sup>
