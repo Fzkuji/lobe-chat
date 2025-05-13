@@ -80,9 +80,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # 暂时先支持 macOS
-        os: [macos-latest]
-    #        os: [macos-latest, windows-latest, ubuntu-latest]
+        os: [macos-latest, windows-2025, ubuntu-latest]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -112,9 +110,8 @@ jobs:
       # macOS 构建处理
       - name: Build artifact on macOS
         if: runner.os == 'macOS'
-        run: npm run desktop:build -- --publish never
+        run: npm run desktop:build
         env:
-          UPDATE_CHANNEL: 'stable'
           APP_URL: http://localhost:3015
           DATABASE_URL: 'postgresql://postgres@localhost:5432/postgres'
           # 默认添加一个加密 SECRET
@@ -131,12 +128,26 @@ jobs:
           NEXT_PUBLIC_DESKTOP_PROJECT_ID: ${{ secrets.UMAMI_BETA_DESKTOP_PROJECT_ID }}
           NEXT_PUBLIC_DESKTOP_UMAMI_BASE_URL: ${{ secrets.UMAMI_BETA_DESKTOP_BASE_URL }}
 
-      # 非 macOS 平台构建处理
-      - name: Build artifact on other platforms
-        if: runner.os != 'macOS'
-        run: npm run desktop:build -- --publish never
+      #  Windows 平台构建处理
+      - name: Build artifact on Windows
+        if: runner.os == 'Windows'
+        run: npm run desktop:build
         env:
-          UPDATE_CHANNEL: 'stable'
+          APP_URL: http://localhost:3015
+          DATABASE_URL: 'postgresql://postgres@localhost:5432/postgres'
+          KEY_VAULTS_SECRET: 'oLXWIiR/AKF+rWaqy9lHkrYgzpATbW3CtJp3UfkVgpE='
+          NEXT_PUBLIC_DESKTOP_PROJECT_ID: ${{ secrets.UMAMI_BETA_DESKTOP_PROJECT_ID }}
+          NEXT_PUBLIC_DESKTOP_UMAMI_BASE_URL: ${{ secrets.UMAMI_BETA_DESKTOP_BASE_URL }}
+
+          # 将 TEMP 和 TMP 目录设置到 D 盘
+          TEMP: D:\temp
+          TMP: D:\temp
+
+      # Linux 平台构建处理
+      - name: Build artifact on Linux
+        if: runner.os == 'Linux'
+        run: npm run desktop:build
+        env:
           APP_URL: http://localhost:3015
           DATABASE_URL: 'postgresql://postgres@localhost:5432/postgres'
           KEY_VAULTS_SECRET: 'oLXWIiR/AKF+rWaqy9lHkrYgzpATbW3CtJp3UfkVgpE='
@@ -185,10 +196,10 @@ jobs:
         with:
           tag_name: ${{ github.event.release.tag_name }}
           files: |
-            ${{ needs.prepare-artifacts.outputs.artifact_path }}/latest*
-            ${{ needs.prepare-artifacts.outputs.artifact_path }}/*.dmg*
-            ${{ needs.prepare-artifacts.outputs.artifact_path }}/*.zip*
-            ${{ needs.prepare-artifacts.outputs.artifact_path }}/*.exe*
-            ${{ needs.prepare-artifacts.outputs.artifact_path }}/*.AppImage
+            release/latest*
+            release/*.dmg*
+            release/*.zip*
+            release/*.exe*
+            release/*.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
