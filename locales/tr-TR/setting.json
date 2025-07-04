@@ -220,7 +220,7 @@
     },
     "inputTemplate": {
       "desc": "Kullanıcının son mesajı bu şablona doldurulur",
-      "placeholder": "Ön işleme şablonu {{input_template}}, gerçek zamanlı giriş bilgileri ile değiştirilir",
+      "placeholder": "Ön işleme şablonu {{text}}, gerçek zamanlı giriş bilgileri ile değiştirilir",
       "title": "Kullanıcı Girişi Ön İşleme"
     },
     "submit": "Sohbet tercihlerini güncelle",
@@ -240,7 +240,19 @@
     "mermaidTheme": {
       "title": "Deniz Kızı Teması"
     },
-    "title": "Sohbet Görünümü"
+    "title": "Sohbet Görünümü",
+    "transitionMode": {
+      "desc": "Sohbet mesajlarının geçiş animasyonu",
+      "options": {
+        "fadeIn": "Solma",
+        "none": {
+          "desc": "Bu, modelin yanıt çıktısına bağlıdır, lütfen kendiniz test edin.",
+          "value": "Yok"
+        },
+        "smooth": "Yumuşak"
+      },
+      "title": "Geçiş Animasyonu"
+    }
   },
   "settingCommon": {
     "lang": {

@@ -220,7 +220,7 @@
     },
     "inputTemplate": {
       "desc": "Ostatnia wiadomość użytkownika zostanie wypełniona w tym szablonie",
-      "placeholder": "Szablon wejściowy {{input_template}} zostanie zastąpiony rzeczywistą wiadomością",
+      "placeholder": "Szablon wejściowy {{text}} zostanie zastąpiony rzeczywistą wiadomością",
       "title": "Szablon wejściowy"
     },
     "submit": "Zaktualizuj preferencje czatu",
@@ -240,7 +240,19 @@
     "mermaidTheme": {
       "title": "Motyw Syreny"
     },
-    "title": "Wygląd czatu"
+    "title": "Wygląd czatu",
+    "transitionMode": {
+      "desc": "Animacja przejścia wiadomości czatu",
+      "options": {
+        "fadeIn": "Pojawianie się",
+        "none": {
+          "desc": "To zależy od sposobu generowania odpowiedzi przez model, proszę przetestować samodzielnie.",
+          "value": "Brak"
+        },
+        "smooth": "Płynne"
+      },
+      "title": "Animacja przejścia"
+    }
   },
   "settingCommon": {
     "lang": {

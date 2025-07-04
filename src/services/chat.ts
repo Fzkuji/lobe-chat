@@ -29,6 +29,7 @@ import {
   modelConfigSelectors,
   modelProviderSelectors,
   preferenceSelectors,
+  userGeneralSettingsSelectors,
   userProfileSelectors,
 } from '@/store/user/selectors';
 import { WebBrowsingManifest } from '@/tools/web-browsing';
@@ -39,7 +40,12 @@ import type { ChatStreamPayload, OpenAIChatMessage } from '@/types/openai/chat';
 import { UserMessageContentPart } from '@/types/openai/chat';
 import { parsePlaceholderVariablesMessages } from '@/utils/client/parserPlaceholder';
 import { createErrorResponse } from '@/utils/errorResponse';
-import { FetchSSEOptions, fetchSSE, getMessageError } from '@/utils/fetch';
+import {
+  FetchSSEOptions,
+  fetchSSE,
+  getMessageError,
+  standardizeAnimationStyle,
+} from '@/utils/fetch';
 import { genToolCallingName } from '@/utils/toolCall';
 import { createTraceHeader, getTraceId } from '@/utils/trace';
 
@@ -257,6 +263,13 @@ class ChatService {
       if (modelExtendParams!.includes('reasoningEffort') && chatConfig.reasoningEffort) {
         extendParams.reasoning_effort = chatConfig.reasoningEffort;
       }
+
+      if (
+        modelExtendParams!.includes('thinkingBudget') &&
+        chatConfig.thinkingBudget !== undefined
+      ) {
+        extendParams.thinkingBudget = chatConfig.thinkingBudget;
+      }
     }
 
     return this.getChatCompletion(
@@ -295,7 +308,7 @@ class ChatService {
   };
 
   getChatCompletion = async (params: Partial<ChatStreamPayload>, options?: FetchOptions) => {
-    const { signal } = options ?? {};
+    const { signal, responseAnimation } = options ?? {};
 
     const { provider = ModelProvider.OpenAI, ...res } = params;
 
@@ -379,6 +392,16 @@ class ChatService {
       sdkType = providerConfig?.settings.sdkType || 'openai';
     }
 
+    const userPreferTransitionMode =
+      userGeneralSettingsSelectors.transitionMode(getUserStoreState());
+
+    // The order of the array is very important.
+    const mergedResponseAnimation = [
+      providerConfig?.settings?.responseAnimation || {},
+      userPreferTransitionMode,
+      responseAnimation,
+    ].reduce((acc, cur) => merge(acc, standardizeAnimationStyle(cur)), {});
+
     return fetchSSE(API_ENDPOINTS.chat(sdkType), {
       body: JSON.stringify(payload),
       fetcher: fetcher,
@@ -388,11 +411,8 @@ class ChatService {
       onErrorHandle: options?.onErrorHandle,
       onFinish: options?.onFinish,
       onMessageHandle: options?.onMessageHandle,
+      responseAnimation: mergedResponseAnimation,
       signal,
-      smoothing:
-        providerConfig?.settings?.smoothing ||
-        // @deprecated in V2
-        providerConfig?.smoothing,
     });
   };
 

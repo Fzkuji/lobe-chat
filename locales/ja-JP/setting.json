@@ -220,7 +220,7 @@
     },
     "inputTemplate": {
       "desc": "ユーザーの最新メッセージがこのテンプレートに埋め込まれます",
-      "placeholder": "入力テンプレート {{input_template}} はリアルタイムの入力情報に置き換えられます",
+      "placeholder": "入力テンプレート {{text}} はリアルタイムの入力情報に置き換えられます",
       "title": "ユーザー入力のプリプロセス"
     },
     "submit": "チャットの好みを更新",
@@ -240,7 +240,19 @@
     "mermaidTheme": {
       "title": "マーメイドテーマ"
     },
-    "title": "チャットの外観"
+    "title": "チャットの外観",
+    "transitionMode": {
+      "desc": "チャットメッセージの遷移アニメーション",
+      "options": {
+        "fadeIn": "フェードイン",
+        "none": {
+          "desc": "これはモデルの応答出力方法によりますので、ご自身でテストしてください。",
+          "value": "なし"
+        },
+        "smooth": "スムーズ"
+      },
+      "title": "遷移アニメーション"
+    }
   },
   "settingCommon": {
     "lang": {
